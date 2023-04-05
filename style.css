@@ -2,6 +2,12 @@ html {
   height: 100%;
   width: 100%;
 }
+
+.custom{
+  margin: 15px;
+  align-self: center;
+}
+
 .header {
   background-color: #f44336;
   padding: 30px 40px;
@@ -43,6 +49,18 @@ input {
   font-size: 16px;
 }
 
+.edit{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 80px;
+  padding: 12px 25px 12px 25px;
+}
+
+.edit:hover {
+  background-color: #f44336;
+  color: white;
+}
 
 .close {
   position: absolute;
