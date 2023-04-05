@@ -1,12 +1,6 @@
-// Setting attributes using javascript
-// let div = document.body.firstElementChild;
-// div.setAttribute("class", "container");
-// div.setAttribute("id","first");
-
-
 // testing close button addition
 for (let i of document.getElementById("checkList").children) {
-  i.lastChild.onclick = remove_func;
+  i.lastElementChild.onclick = remove_func;
   i.children[0].onclick = edit_func;
   i.addEventListener('click', function check_uncheck(ev) {
     if (ev.target.tagName == "LI") {
@@ -15,15 +9,6 @@ for (let i of document.getElementById("checkList").children) {
     }
   }, false);
 }
-
-
-
-// using setTimeout and setInterval
-
-const func = () => div.insertAdjacentHTML("beforeend", "<b>Hello Krub!!!</b>");
-
-// setTimeout(func, 1000);
-
 
 // seconds counter and display
 const def_min = 25;
@@ -35,13 +20,13 @@ const timer = {
   "seconds": def_sec
 }
 
+
 let clock = document.getElementById("clock").firstElementChild
 let s_id;
-let i = 1;
 
 const start = () => {
-  // btn1.setAttribute("disabled","true")
-  // btn2.setAttribute("disabled","false")
+  document.getElementById("start_btn").toggleAttribute("disabled");
+  document.getElementById("pause_btn").toggleAttribute("disabled");
   s_id = setInterval(() => {
     clock.innerHTML = timer["minutes"] + ":" + timer["seconds"]
     if (timer["seconds"] == 0) {
@@ -57,16 +42,16 @@ const start = () => {
 }
 
 const pause = () => {
+ document.getElementById("start_btn").toggleAttribute("disabled"); document.getElementById("pause_btn").toggleAttribute("disabled");
   clearInterval(s_id);
 }
 
 const reset = () => {
+  document.getElementById("start_btn").removeAttribute("disabled"); document.getElementById("pause_btn").setAttribute("disabled","true");
   clearInterval(s_id);
   timer["minutes"] = def_min;
   timer["seconds"] = def_sec;
   clock.innerHTML = timer["minutes"] + ":" + timer["seconds"]
-  // btn2.setAttribute("disabled","true")
-  // btn1.setAttribute("disabled","false")
 }
 
 let start_btn = document.getElementById("start_btn")
@@ -104,7 +89,7 @@ const newElement = () => {
     li.addEventListener('click', function check_uncheck(ev) {
       if (ev.target.tagName == "LI") {
         ev.target.classList.toggle("checked");
-        ev.target.firstElementChild
+        // ev.target.firstElementChild
         // console.log(ev.target.firstElementChild);
       }
     }, false);
@@ -123,14 +108,7 @@ function remove_func() {
 function edit_func() {
   let div = this.parentNode;
   let ip = prompt("Enter the new task");
-  console.log(div.firstChild.textContent);
   div.firstChild.textContent = ip;
 }
 
 
-// to check a list element
-// function check_uncheck(let ev){
-//     if (ev.target.tagName == "LI"){
-//       ev.target.classList.toggle = "checked";
-//     }
-// }
