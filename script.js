@@ -20,6 +20,13 @@ const timer = {
   "seconds": def_sec
 }
 
+function formatTime(time){
+  if (time<10){
+    return `0${time}`
+  }
+  return time
+}
+
 
 let clock = document.getElementById("clock").firstElementChild
 let s_id;
@@ -28,7 +35,7 @@ const start = () => {
   document.getElementById("start_btn").toggleAttribute("disabled");
   document.getElementById("pause_btn").toggleAttribute("disabled");
   s_id = setInterval(() => {
-    clock.innerHTML = timer["minutes"] + ":" + timer["seconds"]
+    clock.innerHTML = formatTime(timer["minutes"]) + ":" + formatTime(timer["seconds"])
     if (timer["seconds"] == 0) {
       if (timer["minutes"] == 0)
         clearInterval(s_id);
@@ -42,12 +49,12 @@ const start = () => {
 }
 
 const pause = () => {
- document.getElementById("start_btn").toggleAttribute("disabled"); document.getElementById("pause_btn").toggleAttribute("disabled");
+  document.getElementById("start_btn").toggleAttribute("disabled"); document.getElementById("pause_btn").toggleAttribute("disabled");
   clearInterval(s_id);
 }
 
 const reset = () => {
-  document.getElementById("start_btn").removeAttribute("disabled"); document.getElementById("pause_btn").setAttribute("disabled","true");
+  document.getElementById("start_btn").removeAttribute("disabled"); document.getElementById("pause_btn").setAttribute("disabled", "true");
   clearInterval(s_id);
   timer["minutes"] = def_min;
   timer["seconds"] = def_sec;
@@ -75,13 +82,13 @@ const newElement = () => {
     document.getElementById("myInput").value = "";
 
     let span_close = document.createElement("span");
-    span_close.appendChild(document.createTextNode("Close"));
+    span_close.innerHTML = '<object data="close_icon.svg"></object>';
     span_close.classList.add("close");
     li.append(span_close);
     span_close.onclick = remove_func;
 
     let span_edit = document.createElement("span");
-    span_edit.appendChild(document.createTextNode("Edit"));
+    span_edit.innerHTML = '<object data="edit_icon.svg"></object>';
     span_edit.classList.add("edit");
     li.lastChild.before(span_edit);
     span_edit.onclick = edit_func;
@@ -108,7 +115,10 @@ function remove_func() {
 function edit_func() {
   let div = this.parentNode;
   let ip = prompt("Enter the new task");
-  div.firstChild.textContent = ip;
+  if (ip != null) {
+    div.firstChild.textContent = ip;
+  }
+
 }
 
 
