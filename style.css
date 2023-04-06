@@ -6,17 +6,22 @@ html {
 body{
   background-image: url(background.jpg);
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+  padding: 20px;
 }
 
 .custom{
-  margin: 50px;
+  max-width: 900px;
+  margin: auto;
+  margin-top: 50px;
   place-content: center;
 }
 
 .header {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   background-color: #0f99bb;
-  padding: 30px 40px;
+  padding: 20px 30px;
   color: white;
   text-align: center;
 }
@@ -38,7 +43,8 @@ body{
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .addBtn:hover {
@@ -48,7 +54,8 @@ body{
 input {
   margin: 0;
   border: none;
-  border-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
   width: 75%;
   padding: 10px;
   float: left;
@@ -106,19 +113,19 @@ ul li:hover {
 
 /* When clicked on, add a background color and strike out text */
 ul li.checked {
-  background: #888;
+  background: #b4b1b1;
   color: #fff;
   text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
-ul li.checked::before {
+ul li.checked::before{
   content: '';
   position: absolute;
   border-color: #fff;
   border-style: solid;
   border-width: 0 2px 2px 0;
-  top: 10px;
+  top: 16px;
   left: 16px;
   transform: rotate(45deg);
   height: 15px;
