@@ -3,7 +3,7 @@ for (let listElement of document.getElementById("checkList").children) {
   listElement.lastElementChild.onclick = remove_func;
   listElement.children[0].onclick = edit_func;
   listElement.addEventListener('click', function checkUncheck(event) {
-    if (event.target.tagName == "li") {
+    if (event.target.tagName == "LI") {
       event.target.classList.toggle("checked");
     }
   }, false);
