@@ -82,13 +82,13 @@ const newElement = () => {
     document.getElementById("myInput").value = "";
 
     let span_close = document.createElement("span");
-    span_close.innerHTML = '<object data="close_icon.svg"></object>';
+    span_close.innerHTML = '<img src="close_icon.svg">';
     span_close.classList.add("close");
     li.append(span_close);
     span_close.onclick = remove_func;
 
     let span_edit = document.createElement("span");
-    span_edit.innerHTML = '<object data="edit_icon.svg"></object>';
+    span_edit.innerHTML = '<img src="edit_icon.svg">';
     span_edit.classList.add("edit");
     li.lastChild.before(span_edit);
     span_edit.onclick = edit_func;
