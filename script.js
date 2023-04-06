@@ -58,7 +58,7 @@ const reset = () => {
   clearInterval(s_id);
   timer["minutes"] = def_min;
   timer["seconds"] = def_sec;
-  clock.innerHTML = timer["minutes"] + ":" + timer["seconds"]
+  clock.innerHTML = formatTime(timer["minutes"]) + ":" + formatTime(timer["seconds"]);
 }
 
 let start_btn = document.getElementById("start_btn")
