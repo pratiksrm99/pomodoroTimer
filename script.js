@@ -75,7 +75,11 @@ const newElement = () => {
   const input = document.getElementById("myInput").value;
   li.appendChild(document.createTextNode(input));
   if (input == "") {
-    alert("Please write something to add to the list");
+    const modal = document.getElementById("myModal");
+    modal.style.display = 'block';
+    document.getElementById("closeModal").onclick = ()=>{
+      modal.style.display = "none";
+    } 
   }
   else {
     document.getElementById("checkList").appendChild(li);
@@ -94,8 +98,6 @@ const newElement = () => {
     li.addEventListener('click', function check_uncheck(ev) {
       if (ev.target.tagName == "LI") {
         ev.target.classList.toggle("checked");
-        // ev.target.firstElementChild
-        // console.log(ev.target.firstElementChild);
       }
     }, false);
 
