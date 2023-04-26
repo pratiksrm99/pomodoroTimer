@@ -1,14 +1,3 @@
-// testing close button addition
-for (let listElement of document.getElementById("checkList").children) {
-  listElement.lastElementChild.onclick = remove_func;
-  listElement.children[0].onclick = edit_func;
-  listElement.addEventListener('click', function checkUncheck(event) {
-    if (event.target.tagName == "LI") {
-      event.target.classList.toggle("checked");
-    }
-  }, false);
-}
-
 // seconds counter and display
 const defaultMinutes = 25;
 const defaultSeconds = 00;
@@ -70,55 +59,97 @@ reset_btn.onclick = reset;
 pause_btn.onclick = pause;
 
 
+const taskList = sessionStorage.getItem("task_list") ? JSON.parse(sessionStorage.getItem("task_list")) : [];
+window.onload = function(){
+  listDisplay();
+}
+
 const newElement = () => {
-  const li = document.createElement("li");
   const input = document.getElementById("myInput").value;
-  li.appendChild(document.createTextNode(input));
+  document.getElementById("myInput").value = "";
   if (input == "") {
-    const modal = document.getElementById("myModal");
-    modal.style.display = 'block';
+    alertModal.style.display = 'block';
     document.getElementById("closeModal").onclick = ()=>{
-      modal.style.display = "none";
-    } 
+      closeModalWindow(alertModal);
+    }
   }
   else {
-    document.getElementById("checkList").appendChild(li);
-    document.getElementById("myInput").value = "";
-    const span_close = document.createElement("span");
-    span_close.innerHTML = '<img src="close_icon.svg">';
-    span_close.classList.add("close");
-    li.append(span_close);
-    span_close.onclick = remove_func;
-    const span_edit = document.createElement("span");
-    span_edit.innerHTML = '<img src="edit_icon.svg">';
-    span_edit.classList.add("edit");
-    li.lastChild.before(span_edit);
-    span_edit.onclick = edit_func;
+    taskList.push(input);
+    sessionStorage.setItem("task_list", JSON.stringify(taskList));
+    
+  }
+  listDisplay();
+}
 
+// modal close
+function closeModalWindow(modalID){
+  modalID.style.display = "none";
+}
+
+// activateDeleteListener
+function activateDeleteListener(){
+  let delBtn = document.querySelectorAll(".deleteBtn");
+  delBtn.forEach((btn,idx)=>{
+    btn.addEventListener('click',()=>{listTaskDelete(idx)},false);
+  })
+}
+
+// activateEditListener
+function activateEditListener(){
+  let editBtn = document.querySelectorAll(".editBtn");
+  editBtn.forEach((btn,idx)=>{
+    btn.addEventListener('click',()=>{listTaskEdit(idx)},false);
+  })
+}
+
+// to display the list
+function listDisplay(){
+  checklist.innerHTML = null;
+  for (let item of taskList){
+    const li = document.createElement("li");
+    li.innerHTML = `${item}
+                    <span class="edit editBtn"><img src="edit_icon.svg"></span>
+                    <span class="close deleteBtn"><img src="close_icon.svg"></span>`
+    checklist.append(li);
     li.addEventListener('click', function check_uncheck(ev) {
       if (ev.target.tagName == "LI") {
         ev.target.classList.toggle("checked");
       }
     }, false);
-
   }
-
+  activateDeleteListener();
+  activateEditListener();
+  
 }
 
 // to clear a list element
-function remove_func() {
-  let div = this.parentNode;
-  div.remove();
+function listTaskDelete(idx) {
+  taskList.splice(idx,1);
+  sessionStorage.setItem("task_list",JSON.stringify(taskList));
+  listDisplay();
 }
 
 // to edit a list element
-function edit_func() {
-  let div = this.parentNode;
-  let ip = prompt("Enter the new task");
-  if (ip != null) {
-    div.firstChild.textContent = ip;
+function listTaskEdit(idx) {
+  saveTextModal.previousElementSibling.onclick = ()=>{
+    closeModalWindow(editModal);
+  };
+  editModal.style.display = "block";
+  saveTextModal.onclick = function(){
+    const newTask = editTextModal.value;
+    if (newTask==""){
+      editTextModal.placeholder = "Field cannot be blank";
+      console.log(editTextModal.placeholder)
+    }
+    else{
+      
+      closeModalWindow(editModal);
+      listTaskDelete(idx);
+      taskList.splice(idx,0,editTextModal.value);
+      sessionStorage.setItem("task_list",JSON.stringify(taskList));
+    }
   }
+  editTextModal.value = null;
+  listDisplay();
 
 }
-
-
