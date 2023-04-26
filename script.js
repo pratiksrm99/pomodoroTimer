@@ -60,6 +60,7 @@ pause_btn.onclick = pause;
 
 
 const taskList = sessionStorage.getItem("task_list") ? JSON.parse(sessionStorage.getItem("task_list")) : [];
+const taskStatus = sessionStorage.getItem("task_status") ? JSON.parse(sessionStorage.getItem("task_status")) : []
 window.onload = function(){
   listDisplay();
 }
@@ -75,8 +76,9 @@ const newElement = () => {
   }
   else {
     taskList.push(input);
+    taskStatus.push("unchecked");
     sessionStorage.setItem("task_list", JSON.stringify(taskList));
-    
+    sessionStorage.setItem("task_status", JSON.stringify(taskStatus));
   }
   listDisplay();
 }
@@ -105,15 +107,28 @@ function activateEditListener(){
 // to display the list
 function listDisplay(){
   checklist.innerHTML = null;
-  for (let item of taskList){
+  for (let i=0; i<taskList.length; i++){
     const li = document.createElement("li");
-    li.innerHTML = `${item}
+    if (taskStatus[i]==="checked"){
+      li.classList.add(taskStatus[i])
+    }
+    li.innerHTML = `${taskList[i]}
                     <span class="edit editBtn"><img src="/icons/edit_icon.svg"></span>
                     <span class="close deleteBtn"><img src="/icons/close_icon.svg"></span>`
     checklist.append(li);
     li.addEventListener('click', function check_uncheck(ev) {
       if (ev.target.tagName == "LI") {
-        ev.target.classList.toggle("checked");
+        const resultCheckedUnchecked = ev.target.classList.toggle("checked");
+        if (resultCheckedUnchecked){
+          taskStatus.splice(i,1);
+          taskStatus.splice(i,0,"checked")
+          sessionStorage.setItem("task_status",JSON.stringify(taskStatus));
+        }
+        else{
+          taskStatus.splice(i,1);
+          taskStatus.splice(i,0,"unchecked")
+          sessionStorage.setItem("task_status",JSON.stringify(taskStatus));
+        }
       }
     }, false);
   }
@@ -125,7 +140,9 @@ function listDisplay(){
 // to clear a list element
 function listTaskDelete(idx) {
   taskList.splice(idx,1);
+  taskStatus.splice(idx,1);
   sessionStorage.setItem("task_list",JSON.stringify(taskList));
+  sessionStorage.setItem("task_status",JSON.stringify(taskStatus));
   listDisplay();
 }
 
