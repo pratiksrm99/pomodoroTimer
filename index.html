@@ -25,9 +25,8 @@
     </div>
   </div>
 
-
   <!-- Modal -->
-  <div class="modal" tabindex="-1" id="myModal">
+  <div class="modal" tabindex="-1" id="alertModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -40,6 +39,20 @@
     </div>
   </div>
 
+  <div class="modal" tabindex="-1" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <input type="text" id="editTextModal" autocomplete="off" placeholder="Enter new task...">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveTextModal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="custom" id="custom">
     <div class="header">
       <h2 style="margin:20px">To Do List</h2>
@@ -47,8 +60,8 @@
       <span onclick="newElement()" class="addBtn">Add</span>
     </div>
     <div style="padding-bottom: 50px;">
-      <ul id="checkList">
-        <li>
+      <ul id="checklist">
+        <!-- <li>
           Project 1
           <span class="edit"><img src="edit_icon.svg"></span>
           <span class="close"><img src="close_icon.svg"></span>
@@ -59,7 +72,7 @@
         <li>Project 2<span class="edit"><img src="edit_icon.svg"></span><span class="close"><img src="close_icon.svg"></span></li>
         <li class="checked">Unnecessary task<span class="edit"><img src="edit_icon.svg"></object></span><span
             class="close"><img src="close_icon.svg"></span>
-        </li>
+        </li> -->
       </ul>
     </div>
   </div>
