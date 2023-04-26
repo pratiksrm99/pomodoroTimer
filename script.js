@@ -108,8 +108,8 @@ function listDisplay(){
   for (let item of taskList){
     const li = document.createElement("li");
     li.innerHTML = `${item}
-                    <span class="edit editBtn"><img src="edit_icon.svg"></span>
-                    <span class="close deleteBtn"><img src="close_icon.svg"></span>`
+                    <span class="edit editBtn"><img src="/icons/edit_icon.svg"></span>
+                    <span class="close deleteBtn"><img src="/icons/close_icon.svg"></span>`
     checklist.append(li);
     li.addEventListener('click', function check_uncheck(ev) {
       if (ev.target.tagName == "LI") {
