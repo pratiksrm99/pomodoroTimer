@@ -131,25 +131,24 @@ function listTaskDelete(idx) {
 
 // to edit a list element
 function listTaskEdit(idx) {
-  saveTextModal.previousElementSibling.onclick = ()=>{
-    closeModalWindow(editModal);
-  };
   editModal.style.display = "block";
   saveTextModal.onclick = function(){
     const newTask = editTextModal.value;
     if (newTask==""){
       editTextModal.placeholder = "Field cannot be blank";
-      console.log(editTextModal.placeholder)
     }
     else{
-      
       closeModalWindow(editModal);
       listTaskDelete(idx);
       taskList.splice(idx,0,editTextModal.value);
       sessionStorage.setItem("task_list",JSON.stringify(taskList));
     }
+    listDisplay();
   }
   editTextModal.value = null;
-  listDisplay();
+  editTextModal.placeholder = "Edit your task name";
+  saveTextModal.previousElementSibling.onclick = ()=>{
+    closeModalWindow(editModal);
+  };
 
 }
